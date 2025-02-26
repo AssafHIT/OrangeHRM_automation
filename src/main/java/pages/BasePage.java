@@ -18,13 +18,11 @@ public class BasePage {
         this.driver = driver;
     }
 
-    // Method to click an element
     public void click(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
-    // Method to fill text in an input field
     public void fillText(By locator, String text) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -37,32 +35,26 @@ public class BasePage {
         }
     }
 
-
     // Method to get text from an element
     public String getText(By locator) {
         return driver.findElement(locator).getText();
     }
 
-    // Method to clear an input field
     public void clear(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         element.clear();
     }
 
-    // Method to perform double click and delete an element's content
     public void doubleClickAndDelete(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 
-        // Perform double-click
         Actions actions = new Actions(driver);
         actions.doubleClick(element).perform();
 
-        // Perform delete action
         actions.sendKeys(Keys.DELETE).perform();
 
-        // Wait for changes to take effect
         try {
             Thread.sleep(3000); // Wait time for demo purposes, consider using WebDriverWait for better synchronization
         } catch (InterruptedException e) {
@@ -70,7 +62,6 @@ public class BasePage {
         }
     }
 
-    // Method to wait for an element to be present
     public boolean waitForElement(By locator, int timeout) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));

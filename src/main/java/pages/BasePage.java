@@ -52,7 +52,6 @@ public class BasePage {
 
         Actions actions = new Actions(driver);
         actions.doubleClick(element).perform();
-
         actions.sendKeys(Keys.DELETE).perform();
 
         try {

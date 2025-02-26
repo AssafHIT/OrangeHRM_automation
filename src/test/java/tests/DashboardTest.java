@@ -8,7 +8,14 @@ import pages.LoginPage;
 import pages.PIMPage;
 import java.time.Duration;
 
-public class DashboardTest extends BaseTest {
+public class DashboardTest extends BaseTest
+{
+    private final String validUsername = "Admin";
+    private final String validPassword = "admin123";
+    private final String empFirstName = "Assaf";
+    private final String empLastName = "Y";
+    private final String empId = "12345";
+
 
     private LoginPage loginPage;
     private DashboardPage dashboardPage;
@@ -21,11 +28,11 @@ public class DashboardTest extends BaseTest {
         PIMPage pimPage = new PIMPage(driver);
 
         // Login
-        loginPage.fillInfo("Admin", "admin123");
+        loginPage.fillInfo(validUsername, validPassword);
         dashboardPage.goToPIM();
 
         // Perform search action
-        pimPage.searchEmployee("A", "B", "12345");
+        pimPage.searchEmployee(empFirstName, empLastName, empId);
 
         // Wait for the records text element to be visible
         new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -34,10 +41,10 @@ public class DashboardTest extends BaseTest {
         String recordsText = driver.findElement(pimPage.RECORDS_FOUND_TEXT).getText();
 
         if (recordsText.contains("No Records Found")) {
-            System.out.println("No records found for A B with employee ID 12345.");
+            System.out.println("No records found for " + empFirstName + " " + empLastName + " with employee ID " + empId);
             Assertions.assertTrue(recordsText.contains("No Records Found"));
         } else {
-            System.out.println("Employee A B with employee ID 12345 found.");
+            System.out.println("Employee " + empFirstName + " " + empLastName + " with employee ID " + empId + " found.");
             Assertions.assertTrue(recordsText.contains("(") && recordsText.contains(")"));
             int numberOfRecords = Integer.parseInt(recordsText.split(" ")[0].replace("(", "").replace(")", ""));
             Assertions.assertTrue(numberOfRecords > 0);
@@ -50,10 +57,10 @@ public class DashboardTest extends BaseTest {
         DashboardPage dashboardPage = new DashboardPage(driver);
         PIMPage pimPage = new PIMPage(driver);
 
-        loginPage.fillInfo("Admin", "admin123");
+        loginPage.fillInfo(validUsername, validPassword);
         dashboardPage.goToPIM();
 
-        pimPage.addEmployee("Assaf", "B", "91546");
+        pimPage.addEmployee(empFirstName, empLastName, empId);
         String currentUrl = driver.getCurrentUrl();
 
         // Wait for success case (URL change)

@@ -13,7 +13,7 @@ This framework automates testing for essential HRM workflows such as logging in,
 
 ---
 
-![OrangeHRM Dashboard](image2025-02-26112838164.png)
+![OrangeHRM Dashboard](Screenshot2025-02-26112307.png)
 
 ## 🚀 Features
 
